@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<!--
+    Lucicat
+    Translation created by Mikael Ylikoski
+
+    Copying and distribution of this file, with or without modification,
+    are permitted in any medium without royalty provided the copyright
+    notice and this notice are preserved.  This file is offered as-is,
+    without any warranty.
+  -->
+
+<language-tags xml:lang='en'>
+
+<language>
+  <!-- Simpler description than in the IANA Language Subtag Registry -->
+  <subtag>el</subtag>
+  <description>Greek</description>
+</language>
+
+<language>
+  <!-- This is an ISO 639-3 code used by Project Gutenberg
+       that are not included in the IANA Language Subtag Registry -->
+  <subtag>gla</subtag>
+  <description>Gaelic</description>
+</language>
+
+<language>
+  <!-- Simpler description than in the IANA Language Subtag Registry -->
+  <subtag>grc</subtag>
+  <description>Greek (Ancient)</description>
+</language>
+
+<language>
+  <!-- Simpler description than in the IANA Language Subtag Registry -->
+  <subtag>ia</subtag>
+  <description>Interlingua</description>
+</language>
+
+</language-tags>

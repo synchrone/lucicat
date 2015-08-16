@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom'
+      xmlns:dcterms='http://purl.org/dc/terms/'
+      xmlns:lucicat='http://lucidor.org/-/lucicat/'
+      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+
+  <entry>
+    <id>urn:uuid:47d28fe9-3cb2-40a8-9365-51dee2877c4a</id>
+    <title>Manifesto of the Communist Party</title>
+    <author>
+      <name lucicat:file-as='Marx, Karl'>Karl Marx</name>
+    </author>
+    <author>
+      <name lucicat:file-as='Engels, Friedrich'>Friedrich Engels</name>
+    </author>
+    <dcterms:language>en</dcterms:language>
+    <dcterms:issued>2009</dcterms:issued>
+    <dcterms:publisher>Lucidor</dcterms:publisher>
+    <dcterms:subject xsi:type="LCSH">Socialism</dcterms:subject>
+    <dcterms:subject xsi:type="LCSH">Communism</dcterms:subject>
+    <dcterms:subject xsi:type="LCC">HX</dcterms:subject>
+    <category term="Essential reading"/>
+    <link href='http://lucidor.org/bookcase/epub/marx,%20engels%20-%20manifesto%20of%20the%20communist%20party.epub'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'
+	  title='Book'/>
+    <link href='http://lucidor.org/bookcase/covers/marx,%20engels%20-%20manifesto%20of%20the%20communist%20party-thumbnail.png'
+          rel='http://opds-spec.org/thumbnail'
+          type='image/png'/>
+  </entry>
+
+  <entry>
+    <id>urn:uuid:f86f9dc7-c4fb-45a7-9da2-0d73c0fd33c2</id>
+    <title>The GNU Manifesto</title>
+    <author>
+      <name lucicat:file-as='Stallman, Richard M.'>Richard M. Stallman</name>
+    </author>
+    <dcterms:language>en</dcterms:language>
+    <dcterms:issued>2008</dcterms:issued>
+    <dcterms:publisher>Lucidor</dcterms:publisher>
+    <rights>Copyright © 1985, 1993, 2003, 2005, 2007  Free Software Foundation, Inc.,  51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA. Permission is granted to anyone to make or distribute verbatim copies  of this document, in any medium, provided that the copyright notice and  permission notice are preserved, and that the distributor grants the  recipient permission for further redistribution as permitted by this  notice. Modified versions may not be made.</rights>
+    <dcterms:subject>Free software</dcterms:subject>
+    <link href='http://lucidor.org/bookcase/epub/stallman,%20r%20m%20-%20the%20gnu%20manifesto.epub'
+	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'
+	  title='Book'/>
+    <link href='http://lucidor.org/bookcase/covers/stallman,%20r%20m%20-%20the%20gnu%20manifesto-thumbnail.png'
+          rel='http://opds-spec.org/thumbnail'
+          type='image/png'/>
+  </entry>
+
+  <entry>
+    <id>urn:uuid:7cb85e30-5150-4710-8f59-4ddd64764fcd</id>
+    <title>The dotCommunist Manifesto</title>
+    <author>
+      <name lucicat:file-as='Moglen, Eben'>Eben Moglen</name>
+    </author>
+    <dcterms:language>en</dcterms:language>
+    <dcterms:issued>2008</dcterms:issued>
+    <dcterms:publisher>Lucidor</dcterms:publisher>
+    <link href='http://lucidor.org/bookcase/epub/moglen,%20e%20-%20the%20dotcommunist%20manifesto.epub'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'
+	  title='Book'/>
+    <link href='http://lucidor.org/bookcase/covers/moglen,%20e%20-%20the%20dotcommunist%20manifesto-thumbnail.png'
+          rel='http://opds-spec.org/thumbnail'
+          type='image/png'/>
+  </entry>
+
+  <entry>
+    <id>urn:uuid:3173342f-8770-4b02-a160-eb4e568c5e0b</id>
+    <title>Der gestiefelte Kater</title>
+    <author>
+      <name lucicat:file-as='Tieck, Ludwig'>Ludwig Tieck</name>
+    </author>
+    <dcterms:language>de</dcterms:language>
+    <dcterms:issued>2009</dcterms:issued>
+    <dcterms:publisher>Lucidor</dcterms:publisher>
+    <link href='http://lucidor.org/bookcase/epub/tieck%20-%20der%20gestiefelte%20kater.epub'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'
+	  title='Book'/>
+    <link href='http://lucidor.org/bookcase/covers/tieck%20-%20der%20gestiefelte%20kater-thumbnail.png'
+          rel='http://opds-spec.org/thumbnail'
+          type='image/png'/>
+  </entry>
+
+  <entry>
+    <id>urn:uuid:16d0d062-a40f-44c3-920a-dd312e226f25</id>
+    <title>Puss in Boots</title>
+    <author>
+      <name lucicat:file-as='Tieck, Ludwig'>Ludwig Tieck</name>
+    </author>
+    <dcterms:language>en</dcterms:language>
+    <dcterms:issued>2008</dcterms:issued>
+    <dcterms:publisher>Lucidor</dcterms:publisher>
+    <dcterms:subject xsi:type="LCSH">German fiction -- Translations into English</dcterms:subject>
+    <link href='http://lucidor.org/bookcase/epub/tieck%20-%20puss%20in%20boots.epub'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'
+	  title='Book'/>
+    <link href='http://lucidor.org/bookcase/covers/tieck%20-%20puss%20in%20boots-thumbnail.png'
+          rel='http://opds-spec.org/thumbnail'
+          type='image/png'/>
+  </entry>
+</feed>

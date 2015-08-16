@@ -1,0 +1,95 @@
+html {
+    background-color: #d9b9a9;
+}
+
+body {
+    font-family: "DejaVu Sans", "Bitstream Vera Sans", Verdana, sans-serif;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 4%;
+    padding-right: 4%;
+    margin: 0px;
+}
+
+div.body {
+    background-color: #ffffff;
+    padding-top: 1em;
+    padding-bottom: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border-color: #99999f;
+    border-width: 1px;
+    border-style: solid;
+}
+
+div.search {
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+div.toplinks {
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+div.entry {
+    background-color: #ffffff;
+    padding: 1em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border-color: #99999f;
+    border-width: 1px;
+    border-style: solid;
+}
+
+div.author {
+    font-variant: small-caps;
+}
+
+span.label {
+    color: #99999f;
+    font-style: italic;
+}
+
+span.suffix {
+    color: #99999f;
+    font-size: 0.9em;
+    margin-left: 0.5em;
+}
+
+a {
+    text-decoration: none;
+}
+
+a.toplink {
+    margin-right: 1em;
+}
+
+a:link {
+    color: #703090;
+}
+
+a:visited {
+    color: #900000;
+}
+
+a:hover {
+    color: #f00000;
+}
+
+div.thumb {
+    float: left;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+div.clear {
+    clear: left;
+    float: left;
+}
+
+object.image {
+    border-color: #ddddcd;
+    border-width: 1px;
+    border-style: solid;
+}

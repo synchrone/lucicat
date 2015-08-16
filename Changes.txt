@@ -1,0 +1,11 @@
+2009-12-30 Version 0.5.1
+  Changes:
+  • lucicat-gutenberg.py has been improved.
+
+  Bug fixes:
+  • Paging did not work with '?query=[...]'.
+  • If the last page in a paged result only had one entry,
+    then the previous page would not link to it.
+
+2009-12-19 Version 0.5
+  Initial release.

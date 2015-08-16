@@ -1,0 +1,2101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V4.4//EN'
+          'http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd' [
+<!ENTITY fdl SYSTEM 'fdl-1.3.xml'>
+]>
+
+<book lang='en' xmlns:xlink='http://www.w3.org/1999/xlink'>
+
+<bookinfo/>
+
+<info>
+  <title>Lucicat Manual</title>
+  <abstract role='description'>
+    <para>Manual for the <application>Lucicat</application> e-book catalog system.</para>
+  </abstract>
+  <author><firstname>Ordbrand</firstname></author>
+  <publisher><publishername>Lucidor</publishername></publisher>
+  <copyright><year>2009</year><holder>Ordbrand</holder></copyright>
+  <releaseinfo>This manual describes version 0.5.1 of <application>Lucicat</application>.</releaseinfo>
+  <!--<edition>0.5.1</edition>-->
+  <date>2009-12</date>
+  <legalnotice>
+    <para>
+      Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.3
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+      A copy of the license is included in the section entitled
+      <link linkend='fdl'>“GNU Free Documentation License”</link>.
+    </para>
+  </legalnotice>
+</info>
+
+<preface id='intro'>
+<title>Introduction</title>
+<para>
+This manual describes the <application>Lucicat</application>
+e-book catalog system, and shows how to set up and maintain
+an online e-book catalog with it.
+</para>
+
+<sect2>
+<title>About <application>Lucicat</application></title>
+<para>
+<application>Lucicat</application> is an OPDS catalog system.
+<!--The purpose of <application>Lucicat</application> is to create OPDS catalogs.-->
+OPDS is a standard for publishing e-book catalogs on the Internet.
+</para>
+<para>
+The main component of <application>Lucicat</application> is an application
+which runs on a web server and serves OPDS catalog feeds to clients.
+It also includes administration tools to create the catalog data.
+</para>
+<para>
+<application>Lucicat</application> uses a <application>MySQL</application>
+database to store the catalog data in, and <application>PHP</application>
+to generate the catalog feeds.
+<application>MySQL</application> and <application>PHP</application>
+are standard technologies for creating web content,
+and most web hosts has support for using them.
+</para>
+
+<sect3>
+<title>Features</title>
+
+<itemizedlist>
+<listitem>
+Generates catalog feeds according to the OPDS standard.
+</listitem>
+<listitem>
+<para>
+Supports searching via an OpenSearch interface.
+Understands an easy to use query language.
+</para>
+<!--
+<para>
+Users of search capable reading systems such as
+<link xlink:href='http://lucidor.org/lucidor/'><application>Lucidor</application></link> and <link xlink:href='http://lucidor.org/lucifox/'><application>Lucifox</application></link>
+can find books in <application>Lucicat</application> catalogs by typing in
+search terms.
+</para>
+-->
+</listitem>
+<listitem>
+Web interface. Catalogs can be browsed and searched with ordinary web browsers.
+</listitem>
+</itemizedlist>
+</sect3>
+<!--
+<sect3>
+<title>Shortcomings</title>
+
+<para>
+Here is a list of shortcomings with the current version of <application>Lucicat</application>,
+that should be fixed in future versions.
+
+<itemizedlist>
+<listitem>
+The OPDS standard has not been finalized yet, and therefore
+this version of <application>Lucicat</application> may not comply with a future final standard.
+</listitem>
+<listitem>
+The query language does not understand boolean operators.
+“OR” is ignored and the default operator “AND” is used.
+</listitem>
+<listitem>
+<application>Lucicat</application> provides no help to update catalogs. It is up to the catalog
+administrator to update the book database in a consistent manner.
+</listitem>
+</itemizedlist>
+
+</para>
+</sect3>
+-->
+<!--
+<sect3>
+<title>Overview</title>
+
+</sect3>
+-->
+
+<sect3>
+<title>License</title>
+<para>
+<application>Lucicat</application> is <link xlink:href='http://www.gnu.org/philosophy/free-sw.html'>free software</link> and is released under
+the GNU Affero General Public License version 3.
+</para>
+<para>
+This license permits you to use, modify and distribute <application>Lucicat</application> at no charge,
+under certain conditions.
+
+The most important conditions are that if you make any modifications
+to <application>Lucicat</application>, or if you incorporate code from
+<application>Lucicat</application> into another program,
+then the program as a whole must also be released under the same license,
+and that you must offer the source code for <application>Lucicat</application>
+(and any modifications) to all users of the catalog.
+</para>
+
+<sect4>
+<title>Commercial license</title>
+
+<para>
+If you do not want to use <application>Lucicat</application> under the
+conditions of the GNU Affero General Public License it is possible to
+get a commercial license.
+If you are interested in this, please send an email to
+<link xlink:href='mailto:ordbrand@gmail.com'>ordbrand@gmail.com</link>
+and ask for more information.
+</para>
+</sect4>
+</sect3>
+</sect2>
+
+<sect2>
+<title>Overview of the <application>Lucicat</application> distribution package</title>
+
+<para>
+Here is a list describing the most important folders and files included
+in the <application>Lucicat</application> distribution package:
+</para>
+
+<variablelist>
+
+<varlistentry>
+<term><filename>examples/</filename></term>
+<listitem>
+<para>Folder containing example files.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>server/</filename></term>
+<listitem>
+<para>Folder containing the files needed by the server application.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>server/lucicat_settings.php</filename></term>
+<listitem>
+<para>Configuration file for the server application.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>tools/</filename></term>
+<listitem>
+<para>Folder containing the administration tools.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>agpl-3.0.txt</filename></term>
+<listitem>
+<para>The GNU Affero General Public License version 3.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>lucicat.ini</filename></term>
+<listitem>
+<para>Configuration file for the administration tools.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>lucicat-manual.epub</filename></term>
+<listitem>
+<para>This manual.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>Makefile</filename></term>
+<listitem>
+<para>A Unix-style Makefile containing some useful rules for working
+with <application>Lucicat</application>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</preface>
+
+<chapter>
+<title>Setting up a <application>Lucicat</application> catalog</title>
+
+<para>
+Setting up a <application>Lucicat</application> catalog
+involves the following steps:
+
+<orderedlist>
+<listitem>
+<para>Creating the database.</para>
+<para>The catalog data is stored in source files in Atom Document format.
+The database is created from the data in the source files.</para>
+</listitem>
+<listitem>
+<para>Configuring <application>Lucicat</application>.</para>
+<para>The server application requires some configuration.</para>
+</listitem>
+<listitem>
+<para>Installing <application>Lucicat</application> on the server.</para>
+<para>The server application and the database need to be uploaded to the server.</para>
+</listitem>
+</orderedlist>
+</para>
+
+<para>
+If you need help setting up a catalog, please see the section
+<link linkend='contact'>“Contact information”</link>.
+</para>
+
+<sect2>
+<title>Prerequisites</title>
+
+<para>
+<application>Lucicat</application> requires a web server
+with support for <application>PHP</application> and
+<application>MySQL</application> to run on.
+If you do not already have access to such a server you
+can contact a web hosting company to get this.
+There are plenty of companies that offer free web hosting,
+so this should not be a problem.
+</para>
+
+<para>
+For testing purposes you can of course run <application>Lucicat</application>
+on your local computer, and do not need an Internet connected web server
+to run it on.
+For this to work you must have <link xlink:href='http://www.mysql.com/'><application>MySQL</application></link>,
+some web server software (such as <link xlink:href='http://www.apache.org/'><application>Apache</application></link>) and
+<link xlink:href='http://www.php.net/'><application>PHP</application></link>
+installed on your computer.<footnote><para>You should make sure that you are
+not connected to the Internet when you run web server software, otherwise other
+people might be able to connect to your computer and access
+the catalog.</para></footnote>
+</para>
+
+<para>
+The <application>Lucicat</application> administration tools require
+that you have <link xlink:href='http://www.python.org/'><application>Python</application></link> installed on your computer.
+If you are creating your database on a local computer you will also need to
+have either <application>MySQL</application> or the
+<link xlink:href='http://sqlite.org/'><application>SQLite</application></link>
+command line tool <command>sqlite3</command>
+installed on your computer. This is described in more detail in the section
+<link linkend='choosing_database'>“Choosing database type”</link>.
+</para>
+
+<para>
+<application>Lucicat</application> can be used on most common computer
+platforms, including GNU/Linux, Mac OS X and Windows.
+</para>
+</sect2>
+
+<sect2>
+<title>Creating the database</title>
+
+<para>
+<application>Lucicat</application> uses a database to store the catalog
+data in on the server.
+<application>Lucicat</application> includes administration tools
+to create and maintain the database.
+</para>
+
+<para>
+This section describes how you use the administration tools to
+create the database.
+The <application>Lucicat</application> server application
+of course does not care how you create this database, as long as the
+database tables have the correct format and the right information in them.
+You can create a compatible database without using the
+<application>Lucicat</application> administration tools,
+and still use the <application>Lucicat</application> server.
+The format of the database is described in the section
+<link linkend='database'>“Database format”</link>.
+</para>
+
+<sect3 id='choosing_database'>
+<title>Choosing database type</title>
+
+<para>
+The administration tools can work with either
+an <application>SQLite</application> database or
+a <application>MySQL</application> database.
+</para>
+
+<formalpara>
+<title>Using an <application>SQLite</application> database</title>
+
+In this case you create the database on your local computer and
+then export the database to the remote <application>MySQL</application> server.
+
+This is the easiest way to create the database, since
+<application>SQLite</application> does not require any administration to use.
+
+This requires that you have the <application>SQLite</application>
+command line tool <command>sqlite3</command> installed on
+your computer.<footnote><para>Actually, you can create the database
+without having <command>sqlite3</command> installed, but you need it to
+be able to export the database afterwards.</para></footnote>
+</formalpara>
+
+<formalpara>
+<title>Using a local <application>MySQL</application> server</title>
+
+In this case you create the database on your local computer and
+then export the database to the remote <application>MySQL</application> server.
+
+Using <application>MySQL</application> requires a little more work
+than is necessary when using <application>SQLite</application>,
+because <application>MySQL</application> requires some administration
+before it can be used.
+
+If you want to test your catalog on your local computer then you
+must use <application>MySQL</application> anyway,
+so in this case it is easiest to create the database directly on
+your locally running <application>MySQL</application> server,
+otherwise you have to import the database to it later.
+</formalpara>
+
+<formalpara>
+<title>Using a <application>MySQL</application> server at your web host</title>
+
+Some web hosts allow remote access to their <application>MySQL</application>
+server, and in this case you can create the database directly on that server.
+</formalpara>
+
+<para>
+It is important to understand the distinction between the database
+that is created by the administration tools, and the database used
+by the <application>Lucicat</application> server application.
+In an abstract sense they may be considered to be “the same”,
+since they have essentially the same information in them,
+but from a practical point of view they may still be different,
+since they may be stored differently.
+
+In the first two cases described above, the database is created locally,
+and is then exported to the remote database server where it will be hosted.
+
+In the last case the database is created directly on the remote database server.
+</para>
+
+<para>
+Note that the <application>Lucicat</application> server application
+can only be used with a <application>MySQL</application> database,
+even though the administration tools can also use
+an <application>SQLite</application> database.
+An <application>SQLite</application> database must always be exported to
+a <application>MySQL</application> server before it can be used by
+the <application>Lucicat</application> server application.
+</para>
+
+</sect3>
+
+<sect3>
+<title>Creating a <application>MySQL</application> database user</title>
+
+<para>
+If you use <application>MySQL</application> then you must first create a
+database user.
+</para>
+
+<para>
+Web hosts usually provide a web interface for administrating
+<application>MySQL</application>.
+<application>Cpanel</application> and <application>phpMyAdmin</application>
+can be used for this.
+</para>
+
+<para>
+It is also possible to use the <command>mysql</command> command line tool
+to create a database user.
+See the <application>MySQL</application> documentation for more information
+about this (<link xlink:href='http://dev.mysql.com/doc/refman/5.1/en/adding-users.html'>section 5.5.2</link> in the documentation for <application>MySQL</application> 5.1).
+</para>
+<para>
+Here is an example of how to use the <command>mysql</command> command line
+tool to create a database user called 'my_username' with the password 'my_password':
+<programlisting><![CDATA[shell> mysql --user=root mysql
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'my_username'@'localhost'
+    ->     IDENTIFIED BY 'my_password' WITH GRANT OPTION;]]></programlisting>
+</para>
+
+</sect3>
+
+<sect3>
+<title>Creating catalog files</title>
+
+<para>
+<application>Lucicat</application> uses files in Atom Document format
+as the source to create the database from.
+You need to create one or more such files containing information
+about your books.
+</para>
+
+<para>
+See <link linkend='atom'>“Format of catalog files”</link>
+for more information about the format of the source files.
+</para>
+
+<sect4>
+<title>Automatically generating catalog files</title>
+
+<para>
+<application>Lucicat</application> includes a tool that can help you with
+creating your catalog files, so that you do not have to create them from
+scratch by hand.
+</para>
+
+<para>
+The command <command>lucicat-epub</command> takes as input a set of EPUB files
+and generates an Atom Document with information about the files.
+<command>lucicat-epub</command> is run like this:
+<para>
+<userinput>lucicat-epub.py -o books.atom Bestiarium.epub Xavier.epub</userinput>
+</para>
+The output from <command>lucicat-epub</command> will probably
+not be ready for use as it is, and you may want to add more information
+than can be derived from the e-book files.
+There are some options for the command.
+If you specify “--base-url” you do not need to edit the download locations
+by hand, and in this case you may also want to use “--file-id” to get
+simpler id:s:
+<para>
+<userinput>lucicat-epub.py -o books.atom --base-url "http://example.com/books/" --file-id Bestiarium.epub Xavier.epub</userinput>
+</para>
+</para>
+
+<para>
+If you already have your book data in another format, you can write a
+custom script that converts your data into Atom Document format.
+<application>Lucicat</application> includes an example of such a script.
+</para>
+
+<para>
+The command <command>lucicat-gutenberg</command> is a script which can be
+used to create an Atom Document with data from
+<link xlink:href='http://www.gutenberg.org/'>Project Gutenberg</link>’s catalog.
+<command>lucicat-gutenberg</command> is run like this:
+<para>
+<userinput>lucicat-gutenberg.py -o gutenberg.atom catalog.rdf epub_urls.txt</userinput>
+</para>
+The input file <filename>catalog.rdf</filename> is Project Gutenberg’s
+<link xlink:href='http://www.gutenberg.org/wiki/Gutenberg:Feeds'>offline catalog</link>,
+and the file <filename>epub_urls.txt</filename> must contain a list of
+URL:s to the EPUB files (for some strange reason this information is not
+available in <filename>catalog.rdf</filename>).<footnote><para>The
+<filename>Makefile</filename> included in the
+<application>Lucicat</application> distribution package shows how the file
+<filename>epub_urls.txt</filename> can be automatically created.</para></footnote>
+</para>
+
+</sect4>
+
+</sect3>
+
+<sect3 id='toolconfig'>
+<title>Configuring the <application>Lucicat</application> tools</title>
+
+<para>
+The <application>Lucicat</application> administration tools that
+operate on the database must be configured before they can be used.
+This includes the commands <command>lucicat-atom</command> and
+<command>lucicat-tool</command>.
+The configuration are by default read from a file named
+<filename>lucicat.ini</filename> in the current folder.
+An alternative configuration file can be specified with
+the “-c” command line option.
+</para>
+
+<para>
+The <application>Lucicat</application> distribution package includes
+an example configuration file named <filename>lucicat.ini</filename>
+which you can use as a template for your own configuration files.
+</para>
+
+<para>
+The details of the configuration file are described in the section
+<link linkend='tools_config'>“Administration tools configuration”</link>.
+</para>
+
+</sect3>
+
+<sect3>
+<title>Populating the database</title>
+
+<para>
+The main administration tool for <application>Lucicat</application>
+is <command>lucicat-atom</command>, which is used for populating
+the database with information.
+</para>
+
+<para>
+The command <command>lucicat-atom</command> takes as input a set of
+catalog files in Atom Document format, and creates a database from
+the information in them.
+<command>lucicat-atom</command> is run like this:
+<para>
+<userinput>lucicat-atom.py -r books-a.atom books-b.atom</userinput>
+</para>
+</para>
+
+<para>
+The “-r” command line option specifies that the database should be reset
+before the data is inserted. In the current version of
+<application>Lucicat</application> it is required to use this option.
+</para>
+
+<!--
+<para>
+Using the “-r” command line option for <command>lucicat-atom</command>
+means that the database should be reset before it is populated.
+The default mode of <command>lucicat-atom</command> is to update
+an existing database.
+</para>
+-->
+
+</sect3>
+<!--
+<sect3>
+<title>Updating the database</title>
+
+<para>
+This follows the same pattern as populating the database for the first time.
+For example:
+<para>
+<userinput>lucicat-atom.py -r books.atom</userinput>
+</para>
+</para>
+
+</sect3>
+-->
+</sect2>
+
+<sect2>
+<title>Configuring <application>Lucicat</application></title>
+
+<para>
+The <application>Lucicat</application> server application uses a configuration
+file with a name of the form <filename>lucicat_settings.php</filename>,
+where <filename>lucicat</filename> matches the name of the main
+<application>Lucicat</application> PHP-script, which by default is called
+<filename>lucicat.php</filename>.
+If the main script has, for example, been renamed to
+<filename>catalog.php</filename>, then the configuration file
+must be named <filename>catalog_settings.php</filename>.
+</para>
+
+<para>
+The <application>Lucicat</application> distribution package includes
+an example configuration file named <filename>lucicat_settings.php</filename>
+which you can use as a template for your own configuration files.
+</para>
+
+<para>
+The details of the configuration file are described in the section
+<link linkend='server_config'>“<application>Lucicat</application> server configuration”</link>.
+</para>
+
+</sect2>
+
+<sect2>
+<title>Installing <application>Lucicat</application> on the server</title>
+
+<sect3>
+<title>Uploading the database</title>
+
+<para>
+If you created the database on a local computer then you need
+to export your database to the remote server.
+If you instead created the <application>Lucicat</application> database
+directly on the <application>MySQL</application> server where it will be
+hosted then you can skip this section.
+</para>
+
+<para>
+Different commands must be used depending on whether you have used
+<application>SQLite</application> or <application>MySQL</application>.
+</para>
+
+<sect4>
+<title>Exporting an <application>SQLite</application> database</title>
+
+<para>
+To export your database to a file you can use the following commands:
+</para>
+
+<para>
+<userinput>sqlite3 lucicat.sqlite .dump > temp.sql</userinput>
+</para>
+
+<para>
+<userinput>lucicat-export.py temp.sql lucicat.sql</userinput>
+</para>
+
+<para>
+The first command dumps the database stored in the file
+<filename>lucicat.sqlite</filename> into a file with SQL statements.
+The <command>sqlite3</command> program is part of
+<application>SQLite</application>.
+</para>
+
+<para>
+The output from the first command must be converted to a format that
+<application>MySQL</application> understands. The second command does that.
+</para>
+</sect4>
+
+<sect4>
+<title>Exporting a <application>MySQL</application> database</title>
+
+<para>
+To export your database to a file you can use the following command:
+</para>
+
+<para>
+<userinput>mysqldump --add-drop-table -u my_username -p my_password db_name > lucicat.sql</userinput>
+</para>
+
+<para>
+You must of course provide correct values according to your settings instead
+of “my_username”, “my_password” and ”db_name”.
+</para>
+
+<para>
+The <command>mysqldump</command> program is part of
+<application>MySQL</application>.
+</para>
+</sect4>
+
+<sect4>
+<title>Importing the database to the server</title>
+
+<para>
+The database file (the file named <filename>lucicat.sql</filename>
+in the previous examples) must now be imported to the server.
+</para>
+
+<para>
+If the database is large you can often compress the database file with
+gzip or zip before importing it. It depends on whether the
+<application>MySQL</application> administration application
+you use can handle compressed formats.
+</para>
+
+<para>
+Different web hosts use different applications for the administration
+of <application>MySQL</application> databases. 
+</para>
+
+<para>
+A common application for web hosting is <application>Cpanel</application>.
+In <application>Cpanel</application> you go to the page “MySQL” to administer
+databases.
+You will need to create a database user and an empty database, and give the database user permission to access the database. You should not give the database user more permission than is necessary. <application>Lucicat</application> only requires “SELECT” privileges to the database.</para>
+
+<para>
+When you have created an empty database on the remote server,
+you need to import your data into the database.
+Again different web hosts may have different applications for doing this.
+A common application is <application>phpMyAdmin</application>,
+which can often be accessed from <application>Cpanel</application>.
+In <application>phpMyAdmin</application> you first select the database
+you just created, and then click on “Import” to upload the database file
+you created earlier (<filename>lucicat.sql</filename>,
+or a compressed version of it).
+</para>
+</sect4>
+</sect3>
+
+<sect3>
+<title>Installing the <application>Lucicat</application> files</title>
+
+<para>
+To install <application>Lucicat</application> on the web host you simply
+upload the required files to the web server, all to the same folder.
+None of the files need to be modified after they have been installed,
+so you should install them as read-only.
+</para>
+
+<para>
+The following files, located in the <filename>server</filename> folder
+of the <application>Lucicat</application> distribution archive,
+must be included:
+</para>
+
+<variablelist>
+<varlistentry>
+<term><filename>lucicat.php</filename></term>
+<listitem>
+<para>The main PHP script.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>lucicatAtom.php</filename></term>
+<listitem>
+<para>PHP Atom library.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>lucicat_settings.php</filename></term>
+<listitem>
+<para>Configuration file. The filename corresponds to the name of the
+main PHP script file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>lucicat.xsl</filename></term>
+<listitem>
+<para>XSL stylesheet. The filename corresponds to the
+<userinput>$config_stylesheet</userinput> configuration parameter.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><filename>lucicat.css</filename></term>
+<listitem>
+<para>CSS stylesheet. Used by the default XSL stylesheet
+<filename>lucicat.xsl</filename>.</para>
+</listitem>
+</varlistentry>
+</variablelist>
+
+<para>
+The free software license used by <application>Lucicat</application>
+requires that you provide the source code for the application.
+If you are using an unmodified version of <application>Lucicat</application>,
+you should provide a copy of the original distribution package.
+If you have modified anything covered by the GNU AGPL then
+you must create your own source code distribution package
+containing the code that is actually running on the server.
+</para>
+<para>
+The location of the source code package is specified by the
+the configuration parameter <userinput>$config_source</userinput>.
+</para>
+<!--
+<para>
+No source code package need to be provided by users who
+have acquired a license that exempts them from this requirement.
+</para>
+-->
+</sect3>
+
+</sect2>
+
+<sect2>
+<title>Testing the catalog</title>
+
+<para>
+Now your catalog should be ready to use.
+</para>
+
+<para>
+To test your catalog you can visit the URL for it using a web browser.
+If your domain is <filename>example.com</filename> and you have installed
+the catalog in the folder <filename>catalog</filename> then your catalog
+will have an URL like <filename>http://example.com/catalog/lucicat.php</filename>.
+If you have installed it on your local computer then it will have
+an URL like <filename>http://127.0.0.1/catalog/lucicat.php</filename>.
+</para>
+<para>
+If your web browser supports XSL stylesheets
+then it should look like a web page, even though it is an OPDS feed.
+Some web browsers may think that the catalog is a web feed, and may
+want to open it with a web feed reader instead.
+In this case you can still use the HTML version of the catalog, which
+can be accessed by appending the string “?style=html” to the URL, for
+example <filename>http://example.com/catalog/lucicat.php?style=html</filename>.
+</para>
+<para>
+You will also want to test your catalog with some OPDS capable reading system
+such as <link xlink:href='http://lucidor.org/lucidor/'><application>Lucidor</application></link> or <link xlink:href='http://lucidor.org/lucifox/'><application>Lucifox</application></link>.
+</para>
+</sect2>
+
+</chapter>
+
+<chapter>
+<title>Upgrading <application>Lucicat</application></title>
+
+<para>
+When upgrading a catalog installation from an older version of
+<application>Lucicat</application> to a newer version, you must
+first check whether the two versions are compatible with each other.
+
+The compatibility between different versions are listed in the
+section <link linkend='compat'>“Compatibility”</link> below.
+</para>
+
+<para>
+To upgrade between two compatible versions of
+<application>Lucicat</application>, you only need to upload the new server
+files, as described below.
+</para>
+
+<para>
+To upgrade between two incompatible versions, you may also need to
+modify your configuration file and/or upgrade your database.
+If this is the case, then this will be described in the section
+<link linkend='compat'>“Compatibility”</link>.
+</para>
+
+<sect2>
+<title>Upgrading the server files</title>
+
+<para>
+To upgrade the server files, you need to replace the following files
+on the web server with the files from the new version:
+<filename>lucicat.php</filename>, <filename>lucicatAtom.php</filename>,
+<filename>lucicat.xsl</filename> and <filename>lucicat.css</filename>.
+</para>
+
+<para>
+You also need to upload a new source code distribution package,
+and modify the <userinput>$config_source</userinput> configuration parameter
+correspondingly.
+</para>
+</sect2>
+
+<sect2 xml:id='compat'>
+<title>Compatibility</title>
+
+<para>
+Versions 0.5 and 0.5.1 are compatible with each other.
+</para>
+</sect2>
+
+</chapter>
+
+<chapter>
+<title>Configuration files</title>
+
+<sect2 xml:id='tools_config'>
+<title>Administration tools configuration</title>
+<!--
+<para>
+The administration tools <command>lucicat-atom</command> and
+<command>lucicat-tool</command>
+</para>
+-->
+<para>
+<variablelist>
+<title>Configuration parameters</title>
+
+<varlistentry>
+<term><userinput>db_type</userinput></term>
+<listitem>
+<para>Database type.</para>
+<para>Must be either <userinput>mysql</userinput> or <userinput>sqlite</userinput>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>db_addr</userinput></term>
+<listitem>
+<para>Hostname or address of <application>MySQL</application> server.</para>
+<para>If you are using a <application>MySQL</application> server on your
+local computer this should be set to <userinput>localhost</userinput>.
+Not used for <application>SQLite</application>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>db_name</userinput></term>
+<listitem>
+<para>Name of database.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>db_user</userinput></term>
+<listitem>
+<para>Database user.</para>
+<para>Not used for <application>SQLite</application>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>db_pass</userinput></term>
+<listitem>
+<para>Password for database user.</para>
+<para>Not used for <application>SQLite</application>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>db_prefix</userinput></term>
+<listitem>
+<para>Database table prefix.</para>
+<para>Useful if you must share the database with other applications.
+Normally you do not need to change this.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</para>
+<!-- FIXME describe alphabet configuration -->
+
+</sect2>
+
+<sect2 xml:id='server_config'>
+<title><application>Lucicat</application> server configuration</title>
+
+<variablelist>
+<title>Configuration parameters</title>
+
+<varlistentry>
+<term><userinput>$db_addr</userinput></term>
+<listitem>
+<para>Hostname or address of <application>MySQL</application> server.</para>
+<para>If the web server and <application>MySQL</application> server runs on the same computer,
+for example if you are testing your catalog on a local computer, this
+should be set to <userinput>'localhost'</userinput>.</para>
+<para>Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$db_name</userinput></term>
+<listitem>
+<para>Name of database.</para>
+<para>Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$db_user</userinput></term>
+<listitem>
+<para>Database user.</para>
+<para>Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$db_pass</userinput></term>
+<listitem>
+<para>Password for database user.</para>
+<para>Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$db_prefix</userinput></term>
+<listitem>
+<para>Database table prefix.</para>
+<para>Useful if you must share the database with other applications.
+Normally you do not need to change this.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_host</userinput></term>
+<listitem>
+<para>Absolute URL of the main <application>Lucicat</application> PHP-script.</para>
+<para>Required. Actually, if this is left blank it will be
+automatically determined, but you should not depend on this.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_main</userinput></term>
+<listitem>
+<para>Absolute URL of the main Lucicat catalog.</para>
+<para>If this is blank the main catalog will be at
+<userinput>$config_host</userinput>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_stylesheet</userinput></term>
+<listitem>
+<para>Filename of XSL stylesheet.</para>
+<para>To use the default stylesheet, set this to <userinput>'lucicat.xsl'</userinput>.</para>
+<para>If this is blank no XSL stylesheet will be used, and it will
+not be possible to browse the catalog using a web browser.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_source</userinput></term>
+<listitem>
+<para>Absolute URL of <application>Lucicat</application>-derived source code.</para>
+<para>Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_title</userinput></term>
+<listitem>
+<para>Catalog title.</para>
+<para>Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_subtitle</userinput></term>
+<listitem>
+<para>Catalog subtitle.</para>
+<para>Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_icon</userinput></term>
+<listitem>
+<para>Location of catalog icon. May be a data-URI.</para>
+<para>Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_popular</userinput></term>
+<listitem>
+<para>Enable “Sort by popularity” link.</para>
+<para>Should only be enabled if the “popularity” column in the
+luci_books database table is used.</para>
+<para>Must be either <userinput>TRUE</userinput> or <userinput>FALSE</userinput>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_partial</userinput></term>
+<listitem>
+<para>This is currently not used.</para>
+<para>Enable partial entries.</para>
+<para>If this is set to true then the entries in the feeds will be partial,
+and have links to full entries.</para>
+<para>Must be either <userinput>TRUE</userinput> or <userinput>FALSE</userinput>. <userinput>FALSE</userinput> is the recommended setting.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><userinput>$config_plain_language</userinput></term>
+<listitem>
+<para>This is currently not used.</para>
+<para>Enable the use of the OpenSearch standard parameter “language”
+instead of the <application>Lucicat</application> extension parameter
+“luci:language”.</para>
+<para>Must be either <userinput>TRUE</userinput> or <userinput>FALSE</userinput>. <userinput>FALSE</userinput> is the recommended setting.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+</chapter>
+
+<chapter xml:id='atom'>
+<title>Format of catalog files</title>
+
+<para>This chapter describes the file format and elements understood by
+<command>lucicat-atom</command>.
+A catalog file is an Atom Document of the OPDS variant,
+with some limitations and some extensions.
+</para>
+
+<!--
+<para>
+For more information about the elements described here, see
+<link xlink:href=''>RFC 4287</link>,
+<link xlink:href=''>OPDS</link>
+and <link xlink:href=''>DCTerms</link>.
+</para>
+-->
+
+<sect2>
+<title>Base structure</title>
+
+<para>
+The root element of the file is <userinput>atom:feed</userinput>.
+It contains one or more <userinput>atom:entry</userinput> elements describing
+the books.
+</para>
+
+<para>
+<command>lucicat-atom</command> only reads the entries of the feed.
+Any other elements at the feed level are ignored.
+</para>
+
+<para>
+It is convenient to set Atom as the default namespace,
+in which case <userinput>atom:id</userinput> will be written
+as <userinput>id</userinput> etc.
+</para>
+
+<para>
+Here is an example showing the base structure of a catalog file.
+</para>
+
+<programlisting><![CDATA[<feed xmlns='http://www.w3.org/2005/Atom'
+      xmlns:dcterms='http://purl.org/dc/terms/'
+      xmlns:lucicat='http://lucidor.org/-/lucicat/'
+      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+  <entry>
+    <!-- Information about the first book -->
+  </entry>
+  <entry>
+    <!-- Information about the second book -->
+  </entry>
+  <!-- More entries -->
+</feed>]]></programlisting>
+
+<para>
+Each <userinput>atom:entry</userinput> element describes one book
+of the catalog, using the various elements described in the rest of
+this chapter.
+</para>
+
+</sect2>
+
+<sect2>
+<title>Elements from the Atom namespace</title>
+
+<para>
+The URI for the Atom namespace is <filename>http://www.w3.org/2005/Atom</filename>.
+</para>
+
+<sect3>
+<title>atom:author</title>
+
+<para>
+An author of the book.
+Every book should have one or more authors specified.
+</para>
+
+<para>
+The name of the author is specified in the child element 'name'.
+There are also optional child elements 'uri' and 'email'.
+</para>
+
+<para>
+The 'name' element supports the custom attribute
+'file-as' from the Lucicat namespace,
+which is used to specify the filing order of the name.
+Often you want the name to be written on the form
+“First name Surname” but filed according to “Surname, First name”,
+and in this case you must use this attribute.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<atom:author>
+  <atom:name>Mare Kandre</atom:name>
+</atom:author>]]></programlisting>
+
+<programlisting><![CDATA[<atom:author>
+  <atom:name lucicat:file-as='Kandre, Mare'>Mare Kandre</atom:name>
+</atom:author>]]></programlisting>
+
+<programlisting><![CDATA[<atom:author>
+  <atom:name>Kiril</atom:name>
+  <atom:uri>http://example.com/kiril/</atom:uri>
+  <atom:email>kiril@example.com</atom:email>
+</atom:author>]]></programlisting>
+
+</sect3>
+
+<sect3 id='atom_category'>
+<title>atom:category</title>
+
+<para>
+A category for the book. Several categories may be specified.
+</para>
+<para>
+The 'term' attribute is required, while 'scheme' and 'label' are optional.
+</para>
+<para>
+Also see <link linkend='dc_subject'>dcterms:subject</link>.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<atom:category term='Classics'/>]]></programlisting>
+
+<programlisting><![CDATA[<atom:category term='My favorite books'/>]]></programlisting>
+
+<programlisting><![CDATA[<atom:category scheme='http://example.com/genre' term='horror' label='Rysare'/>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>atom:id</title>
+
+<para>
+A unique id for the book. Required.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<atom:id>http://example.com/books/123</atom:id>]]></programlisting>
+
+<programlisting><![CDATA[<atom:id>urn:uuid:4d17ff18-c6ef-41e3-ab21-46e5199eea98</atom:id>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>atom:link</title>
+
+<para>
+Some kind of link for the book.
+This element is used for many purposes in OPDS,
+for example to specify an acquisition link, or a link to a cover image
+or thumbnail image of the book.
+</para>
+
+<para>
+Note that the current version of <application>Lucifox</application> ignores
+any content inside the link.
+It is not possible to have things like
+<programlisting><![CDATA[<opds:price currencycode='USD'>1.00</opds:price>]]></programlisting>
+or
+<programlisting><![CDATA[<dcterms:hasFormat>application/epub+zip</dcterms:hasFormat>]]></programlisting>
+inside links.
+</para>
+
+<para>
+The 'href' and 'type' attributes are required.
+The 'rel' attribute is interpreted as “alternate” if it is not specified.
+The 'title' attribute is optional.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<atom:link href='http://example.com/book.epub'
+           rel='http://opds-spec.org/acquisition'
+           type='application/epub+zip'
+           title='Book'/>]]></programlisting>
+
+<programlisting><![CDATA[<atom:link href='http://example.com/fountain-thumnail.png'
+           rel='http://opds-spec.org/thumbnail'
+           type='image/png'/>]]></programlisting>
+
+<programlisting><![CDATA[<atom:link href='http://example.com/fountain-cover.png'
+           rel='http://opds-spec.org/cover'
+           type='image/png'/>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>atom:rights</title>
+
+<para>
+Notice about legal rights concerning the book.
+</para>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<atom:rights>All rights reversed.</atom:rights>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>atom:summary</title>
+
+<para>
+A short summary about the book.
+</para>
+
+<para>
+The current version of <application>Lucicat</application> can only handle
+text summaries, not HTML summaries.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<atom:summary>A surreal story about a teenage girl
+living in a windowless train.</atom:summary>]]></programlisting>
+<!--
+<programlisting><![CDATA[<atom:summary type='xhtml'></atom:summary>]]></programlisting>
+-->
+</sect3>
+
+<sect3>
+<title>atom:title</title>
+
+<para>
+Title of the book. Required.
+</para>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<atom:title>Aliide, Aliide</atom:title>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>atom:updated</title>
+
+<para>
+Time when the entry was last updated.
+Will be automatically set to the current time if not present.
+</para>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<atom:updated>2009-10-31T22:05:00Z</atom:updated>]]></programlisting>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+<title>Elements from the DCTerms namespace</title>
+
+<para>
+The URI for the DCTerms namespace is <filename>http://purl.org/dc/terms/</filename>.
+</para>
+
+<sect3>
+<title>dcterms:issued</title>
+
+<para>
+Date when the book was first published.
+</para>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<dcterms:issued>2009</dcterms:issued>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>dcterms:language</title>
+
+<para>
+Language of the book. Several languages may be specified.
+</para>
+
+<para>
+Must be in the format described in RFC 5646.
+Must not be longer than 12 characters.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<dcterms:language>fr</dcterms:language>]]></programlisting>
+
+<programlisting><![CDATA[<dcterms:language>fr-CA</dcterms:language>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>dcterms:publisher</title>
+
+<para>
+The publisher of the book.
+</para>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<dcterms:publisher>Acme Publishing</dcterms:publisher>]]></programlisting>
+
+</sect3>
+
+<sect3 id='dc_subject'>
+<title>dcterms:subject</title>
+
+<para>
+A subject for the book. Several subjects may be specified.
+</para>
+<para>
+Also see <link linkend='atom_category'>atom:category</link>.
+</para>
+
+<para>
+Examples:
+</para>
+
+<programlisting><![CDATA[<dcterms:subject>Romance</dcterms:subject>]]></programlisting>
+
+<programlisting><![CDATA[<dcterms:subject xsi:type='LCSH'>Socialism</dcterms:subject>]]></programlisting>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+<title>Elements from the Lucicat namespace</title>
+
+<para>
+The URI for the Lucicat namespace is <filename>http://lucidor.org/-/lucicat/</filename>.
+</para>
+
+<sect3>
+<title>lucicat:featured</title>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<lucicat:featured>1</lucicat:featured>]]></programlisting>
+
+</sect3>
+
+<sect3>
+<title>lucicat:popularity</title>
+
+<para>
+Example:
+</para>
+
+<programlisting><![CDATA[<lucicat:popularity>12</lucicat:popularity>]]></programlisting>
+
+</sect3>
+
+</sect2>
+
+<sect2>
+<title>Full example</title>
+
+<programlisting>
+<![CDATA[<feed xmlns='http://www.w3.org/2005/Atom'
+      xmlns:dcterms='http://purl.org/dc/terms/'
+      xmlns:lucicat='http://lucidor.org/-/lucicat/'
+      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+
+  <entry>
+    <id>urn:uuid:142cfbfe-d925-423e-ace9-ec23bd000489</id>
+    <title>The Timid Lion</title>
+    <author>
+      <name lucicat:file-as='Allen, David D.'>David D. Allen</name>
+      <uri>http://example.com/dada/</uri>
+    </author>
+    <dcterms:language>en</dcterms:language>
+    <dcterms:issued>2009</dcterms:issued>
+    <dcterms:publisher>Acme Publishing</dcterms:publisher>
+    <link href='http://example.com/books/lion.epub'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'/>
+    <link href='http://example.com/books/lion.pdf'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/pdf'/>
+    <link href='http://example.com/images/lion-thumbnail.png'
+    	  rel='http://opds-spec.org/thumbnail'
+	  type='image/png'/>
+    <link href='http://example.com/images/lion-cover.png'
+    	  rel='http://opds-spec.org/cover'
+	  type='image/png'/>
+    <link href='http://example.com/dada/lion/'
+    	  rel='alternate'
+	  type='text/html'
+	  title='Book website'/>
+  </entry>
+
+  <entry>
+    <id>urn:uuid:1efa41cd-20bc-4a50-b5fa-af500391275d</id>
+    <title>The Fountain of Middle Age</title>
+    <author>
+      <name lucicat:file-as='Lopez, Eva'>Eva Lopez</name>
+      <uri>http://example.com/elopez/</uri>
+    </author>
+    <dcterms:language>en</dcterms:language>
+    <dcterms:language>la</dcterms:language>
+    <dcterms:issued>2009</dcterms:issued>
+    <dcterms:publisher>Acme Publishing</dcterms:publisher>
+    <category term='Bulldozer books'/>
+    <link href='http://example.com/books/fountain.epub'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/epub+zip'/>
+    <link href='http://example.com/books/fountain.pdf'
+    	  rel='http://opds-spec.org/acquisition'
+	  type='application/pdf'/>
+    <link href='http://example.com/images/fountain-thumbnail.png'
+    	  rel='http://opds-spec.org/thumbnail'
+	  type='image/png'/>
+    <link href='http://example.com/images/fountain-cover.png'
+    	  rel='http://opds-spec.org/cover'
+	  type='image/png'/>
+    <link href='http://example.com/elopez/fountain/'
+    	  rel='alternate'
+	  type='text/html'
+	  title='Book website'/>
+  </entry>
+</feed>]]></programlisting>
+
+</sect2>
+
+</chapter>
+
+<chapter>
+<title>Administration tools</title>
+
+<sect2>
+<title>lucicat-atom</title>
+
+<para>
+<command>lucicat-atom</command> requires configuration before it can be used.
+See <link linkend='tools_config'>“Administration tools configuration”</link>
+for information about this.
+</para>
+
+<para>
+Example:
+<userinput>lucicat-atom.py -r books.atom</userinput>
+</para>
+</sect2>
+
+<sect2>
+<title>lucicat-epub</title>
+
+<para>
+Example:
+
+<userinput>lucicat-epub.py -o books.atom Bestiarium.epub Xavier.epub</userinput>
+</para>
+
+</sect2>
+
+<sect2>
+<title>lucicat-gutenberg</title>
+
+<para>
+Creates an Atom file with data from Project Gutenberg’s catalog.
+</para>
+
+<para>
+Example:
+
+<userinput>lucicat-gutenberg.py -o gutenberg.atom catalog.rdf epub_files</userinput>
+</para>
+
+</sect2>
+
+<sect2>
+<title>lucicat-tool</title>
+
+<para>
+<command>lucicat-tool</command> requires configuration before it can be used.
+See <link linkend='tools_config'>“Administration tools configuration”</link>
+for information about this.
+</para>
+
+<para>
+Example:
+Initializing the database.
+This creates a database with empty tables.
+<para>
+<userinput>lucicat-tool.py reset</userinput>
+</para>
+</para>
+
+<para>
+Example:
+<para>
+<userinput>lucicat-tool.py sync</userinput>
+</para>
+</para>
+
+<para>
+Example:
+<para>
+<userinput>lucicat-tool.py authors books titles</userinput>
+</para>
+</para>
+
+</sect2>
+
+<sect2>
+<title>lucicat-export</title>
+
+<para>
+Converts an <application>SQLite</application> SQL dump of an
+<application>Lucicat</application> database to
+<application>MySQL</application> syntax.
+Should be used if you want to export data from an
+<application>SQLite</application> database and
+import it into a <application>MySQL</application> database
+for use with <application>Lucicat</application>.
+</para>
+
+<para>
+Example:
+<para>
+<userinput>lucicat-export.py input.sql output.sql</userinput>
+</para>
+</para>
+
+</sect2>
+
+<sect2>
+<title>lite2my</title>
+
+<para>
+Converts an <application>SQLite</application> SQL dump to
+<application>MySQL</application> syntax.
+Can be used if you want to export data from an
+<application>SQLite</application> database and
+import it into a <application>MySQL</application> database.
+</para>
+<para>
+This command is similar to <command>lucicat-export</command>,
+but is more general and not tied to <application>Lucicat</application>.
+The difference is that <command>lucicat-export</command> will
+insert statements to clear the database before inserting the new data.
+Therefore you should normally use <command>lucicat-export</command>
+instead of this command when you are handling
+<application>Lucicat</application> databases.
+</para>
+
+<para>
+Example:
+<para>
+<userinput>sqlite3 database.sqlite .dump | lite2my.py > database.sql</userinput>
+</para>
+</para>
+
+</sect2>
+
+<sect2>
+<title>opds-crawl</title>
+
+<para>
+Downloads a crawlable OPDS catalog to a set of files.
+</para>
+
+<para>
+Example:
+
+<userinput>opds-crawl.py http://lucidor.org/opds/gutenberg.atom pg</userinput>
+</para>
+
+</sect2>
+
+</chapter>
+
+<chapter xml:id='database'>
+<title>Database format</title>
+
+<para>
+This chapter describes the format of the database tables used by
+the <application>Lucicat</application> server application.
+</para>
+
+<para>
+The table prefix “luci_” corresponds to the variable $db_prefix in
+the <filename>lucicat_settings.php</filename> configuration file.
+</para>
+
+<sect2>
+<title>luci_books table</title>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_books (id INTEGER PRIMARY KEY AUTO_INCREMENT, xid TEXT NOT NULL, author TEXT, title TEXT NOT NULL, language TEXT, publisher TEXT, issued TEXT, rights TEXT, summary TEXT, summary_html TEXT, updated TEXT(30), popularity MEDIUMINT)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_books</title>
+
+<varlistentry>
+<term>xid</term>
+<listitem>
+<para>Atom entry id, must be unique. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>author</term>
+<listitem>
+<para>Author’s name.</para>
+<para>This columns is only used for ordering book listings.
+See the luci_authors table for the “real” authors.</para>
+<para>Can be created with <command>lucicat-tool</command>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>title</term>
+<listitem>
+<para>Book title. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>language</term>
+<listitem>
+<para>String with language codes. The string is prefixed and suffixed with "|", and each language code is separated by "|". Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>publisher</term>
+<listitem>
+<para>Book publisher. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>issued</term>
+<listitem>
+<para>Date (usually just year) when book was originally released. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>rights</term>
+<listitem>
+<para>Short notice about legal rights concerning the book. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>summary</term>
+<listitem>
+<para>Text summary. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>summary_html</term>
+<listitem>
+<para>HTML summary. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>updated</term>
+<listitem>
+<para>Time and date when catalog entry was last updated. Required.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+<title>luci_authors table</title>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_authors (id INTEGER PRIMARY KEY AUTO_INCREMENT, name TEXT NOT NULL, uri TEXT, email TEXT, file_as TEXT, initial TEXT)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_authors</title>
+
+<varlistentry>
+<term>name</term>
+<listitem>
+<para>Author’s name. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>uri</term>
+<listitem>
+<para>URI associated with the author. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>email</term>
+<listitem>
+<para>Author’s email address. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>file_as</term>
+<listitem>
+<para>Filing order. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>initial</term>
+<listitem>
+<para>Initial letter of name. Required.</para>
+<para>This field can be created with <command>lucicat-tool</command>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+<title>luci_authors_books table</title>
+
+<para>
+Table joining authors and books.
+</para>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_authors_books (id INTEGER PRIMARY KEY AUTO_INCREMENT, author INTEGER NOT NULL, book INTEGER NOT NULL)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_authors_books</title>
+
+<varlistentry>
+<term>author</term>
+<listitem>
+<para>id from luci_authors table.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>book</term>
+<listitem>
+<para>id from luci_books table.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect2>
+
+<sect2>
+<title>luci_links table</title>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_links (id INTEGER PRIMARY KEY AUTO_INCREMENT, href TEXT NOT NULL, rel TEXT, type TEXT, title TEXT, book INTEGER NOT NULL)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_links</title>
+
+<varlistentry>
+<term>href</term>
+<listitem>
+<para>Link URL. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>type</term>
+<listitem>
+<para>Mediatype. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>rel</term>
+<listitem>
+<para>Link relation. Required.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>title</term>
+<listitem>
+<para>Link title. Optional.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>book</term>
+<listitem>
+<para>id from luci_books table.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+<title>luci_categories table</title>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_categories (id INTEGER PRIMARY KEY AUTO_INCREMENT, term TEXT NOT NULL, scheme TEXT, label TEXT, is_subject SMALLINT, book INTEGER NOT NULL)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_categories</title>
+
+<varlistentry>
+<term>term</term>
+<listitem>
+<para>Category term. Required.</para>
+<para>Corresponds to content of dcterm:subject.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>scheme</term>
+<listitem>
+<para>Category scheme. Optional.</para>
+<para>Corresponds to xsi:type for dcterm:subject.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>label</term>
+<listitem>
+<para>Human readable category label. Optional.</para>
+<para>Not used for dcterm:subject.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>is_subject</term>
+<listitem>
+<para>Boolean value indicating whether the row is an <userinput>atom:category</userinput> or a <userinput>dcterms:subject</userinput>.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>book</term>
+<listitem>
+<para>id from luci_books table.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+<title>luci_titles table</title>
+
+<para>
+This table can be generated with <command>lucicat-tool</command>.
+</para>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_titles (book INTEGER PRIMARY KEY, initial TEXT NOT NULL)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_titles</title>
+
+<varlistentry>
+<term>book</term>
+<listitem>
+<para>id from luci_books table.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>initial</term>
+<listitem>
+<para>Initial letter in book title.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+<title>luci_featured table</title>
+
+<para>
+Table listing “featured” books. This table is optional.
+</para>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_featured (book INTEGER PRIMARY KEY, featured MEDIUMINT NOT NULL)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_featured</title>
+
+<varlistentry>
+<term>book</term>
+<listitem>
+<para>id from luci_books table.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>featured</term>
+<listitem>
+<para>Sorting weight.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2>
+<title>luci_languages table</title>
+
+<para>
+Table listing languages.
+</para>
+
+<para>
+SQL create statement: <userinput>CREATE TABLE luci_languages (code CHAR(12) PRIMARY KEY, label TEXT, count MEDIUMINT)</userinput>
+</para>
+
+<variablelist>
+<title>Columns in luci_languages</title>
+
+<varlistentry>
+<term>code</term>
+<listitem>
+<para>Language code. Must be in the format described in RFC 5646.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>label</term>
+<listitem>
+<para>Language label (e.g. "English").</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>count</term>
+<listitem>
+<para>Number of books with this language code.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+</chapter>
+
+
+<chapter xml:id='contact'>
+<title>Contact information</title>
+
+<para>
+If you want help, have found a bug, have some suggestion for how to
+improve the application, or have any other feedback regarding
+<application>Lucicat</application>, you should visit the Lucidor Forum.
+For more information see the webpage <link xlink:href='http://lucidor.org/lucidor/support.html'>http://lucidor.org/lucidor/support.html</link>.
+</para>
+<para>
+The creator of <application>Lucicat</application> can also be reached via email on the address <link xlink:href='mailto:ordbrand@gmail.com'>ordbrand@gmail.com</link>.
+</para>
+<para>
+The <application>Lucicat</application> website is located at <link xlink:href='http://lucidor.org/lucicat/'>http://lucidor.org/lucicat/</link>.
+</para>
+
+</chapter>
+
+&fdl;
+
+</book>
